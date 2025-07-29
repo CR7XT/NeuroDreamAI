@@ -36,9 +36,26 @@ source venv/bin/activate
 venv\Scripts\activate
 ```
 
+
 ### 5. Start the App
-```bash
-python src/app.py
+
+**Recommended:** Use the interactive launcher to select mode (offline or API):
+```powershell
+run_neurodreamai.bat
+```
+You will be prompted to choose:
+    1. Offline/Template (no API)
+    2. API (OpenAI GPT)
+    3. Exit
+
+**Manual:**
+To run in offline/template mode:
+```powershell
+C:/Users/pruth/.cache/mine/Scripts/conda.exe run -p c:/Users/pruth/ai/NeuroDreamAI/.conda --no-capture-output python src/app.py
+```
+To run with API (OpenAI GPT) mode:
+```powershell
+$env:USE_API="1"; C:/Users/pruth/.cache/mine/Scripts/conda.exe run -p c:/Users/pruth/ai/NeuroDreamAI/.conda --no-capture-output python src/app.py
 ```
 
 ### 6. Open Browser

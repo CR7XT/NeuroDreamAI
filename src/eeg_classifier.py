@@ -203,7 +203,7 @@ class EEGEmotionTrainer:
         self.device = device if TORCH_AVAILABLE else 'cpu'
         self.emotion_labels = ['happy', 'sad', 'fear', 'anger', 'surprise', 'disgust', 'neutral']
         
-        if TORCH_AVAILABLE:
+        if TORCH_AVAILABLE and hasattr(self.model, 'to'):
             self.model = self.model.to(self.device)
     
     def predict_emotion(self, eeg_sample):

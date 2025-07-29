@@ -90,29 +90,52 @@ NeuroDreamAI_Complete/
 - **Git** (optional, for version control)
 - **8GB+ RAM** (for optimal performance)
 
+
+### 1. Prerequisites
+
+- **Python 3.8+** (Recommended: Python 3.11)
+- **VS Code** with Python extension
+- **Git** (optional, for version control)
+- **8GB+ RAM** (for optimal performance)
+
+---
+
+## 📁 Project Structure
+
+See the folder tree in this repository for a full breakdown. Key files:
+
+- `README.md` – This file (full setup guide)
+- `requirements.txt` – Python dependencies
+- `src/app.py` – Main Gradio web application
+- `run_neurodreamai.bat` – Easy launcher for API/offline mode
+
+---
+
+## 🚀 Quick Start Guide
+
+### 1. Prerequisites
+
+- **Python 3.8+** (Recommended: Python 3.11)
+- **VS Code** with Python extension
+- **Git** (optional, for version control)
+- **8GB+ RAM** (for optimal performance)
+
 ### 2. Installation
 
 #### Option A: Automatic Setup (Recommended)
-```bash
+```powershell
 # Clone or download the project
-cd NeuroDreamAI_Complete
+cd NeuroDreamAI
 
 # Run the setup script
 python setup.py install
-
-# Activate virtual environment (created automatically)
-source venv/bin/activate  # Linux/Mac
-# or
-venv\Scripts\activate     # Windows
 ```
 
 #### Option B: Manual Setup
-```bash
+```powershell
 # Create virtual environment
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# or
-venv\Scripts\activate     # Windows
+venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
@@ -123,90 +146,40 @@ pip install -e .
 
 ### 3. Running the Application
 
-#### Basic Demo (Gradio Web Interface)
-```bash
-# Start the web application
-python src/app.py
+#### Easiest: Interactive Launcher (Recommended)
 
-# Open browser to: http://localhost:7860
+Use the included batch file to select your mode (offline or API):
+
+```powershell
+run_neurodreamai.bat
 ```
 
-#### Command Line Usage
-```bash
-# Process EEG file and generate dream
-python examples/basic_usage.py --eeg_file data/sample_eeg/sample.csv
+You will be prompted:
 
-# Batch process multiple files
-python examples/batch_processing.py --input_dir data/sample_eeg/
+    Select NeuroDreamAI mode:
+    1. Offline/Template (no API)
+    2. API (OpenAI GPT)
+    3. Exit
+
+Choose 1 to run without an API key (template-based dreams), or 2 to use GPT (requires OpenAI API key in your environment).
+
+The app will launch and you can open your browser to: http://localhost:7860
+
+#### Advanced: Manual Command
+
+To run in offline/template mode:
+
+```powershell
+C:/Users/pruth/.cache/mine/Scripts/conda.exe run -p c:/Users/pruth/ai/NeuroDreamAI/.conda --no-capture-output python src/app.py
 ```
 
-### 4. VS Code Setup
+To run with API (OpenAI GPT) mode:
 
-1. **Open the project in VS Code:**
-   ```bash
-   code NeuroDreamAI_Complete/
-   ```
-
-2. **Select Python interpreter:**
-   - Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac)
-   - Type "Python: Select Interpreter"
-   - Choose the interpreter from `venv/bin/python`
-
-3. **Install recommended extensions:**
-   - Python (Microsoft)
-   - Jupyter (Microsoft)
-   - Python Docstring Generator
-   - GitLens (optional)
-
----
-
-## 🔧 Configuration
-
-### Environment Variables
-Create a `.env` file in the project root:
-
-```bash
-# OpenAI API (for GPT-based dream generation)
-OPENAI_API_KEY=your_openai_api_key_here
-
-# Video generation platforms
-PIKA_LABS_API_KEY=your_pika_labs_key
-RUNWAY_API_KEY=your_runway_key
-
-# EEG processing settings
-EEG_SAMPLING_RATE=128
-EEG_CHANNELS=14
-EMOTION_CONFIDENCE_THRESHOLD=0.7
-
-# Output settings
-SAVE_INTERMEDIATE_RESULTS=true
-OUTPUT_VIDEO_QUALITY=high
-```
-
-### Model Configuration
-Edit `models/model_configs/eeg_classifier_config.json`:
-
-```json
-{
-  "model_type": "CNN_LSTM",
-  "num_channels": 14,
-  "sequence_length": 384,
-  "num_emotions": 7,
-  "conv_filters": [64, 128],
-  "lstm_hidden": 128,
-  "dropout_rate": 0.3,
-  "learning_rate": 0.001
-}
+```powershell
+$env:USE_API="1"; C:/Users/pruth/.cache/mine/Scripts/conda.exe run -p c:/Users/pruth/ai/NeuroDreamAI/.conda --no-capture-output python src/app.py
 ```
 
 ---
-
-## 📊 Usage Examples
-
-### Example 1: Basic EEG Processing
-```python
-from src.eeg_classifier import EEGEmotionClassifier
-from src.dream_generator import DreamNarrativeGenerator
 
 # Load and classify EEG data
 classifier = EEGEmotionClassifier()

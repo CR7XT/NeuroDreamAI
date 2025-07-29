@@ -62,7 +62,10 @@ class NeuroDreamAIApp:
         else:
             print("Dream generator not available - using fallback")
             self.dream_generator = None
-        
+
+        # Add API key usage flag
+        self.use_api = os.environ.get('USE_API', '0') == '1'
+
         # Create output directories
         os.makedirs("outputs", exist_ok=True)
         os.makedirs("outputs/dream_videos", exist_ok=True)
@@ -197,12 +200,15 @@ class NeuroDreamAIApp:
         except Exception as e:
             return f"Error processing EEG data: {str(e)}", None, None
     
-    def generate_dream_narrative(self, detected_emotion, use_gpt=False):
+    def generate_dream_narrative(self, detected_emotion, use_gpt=None):
         """Generate dream narrative from detected emotion"""
         try:
             if detected_emotion is None:
                 return "Please process EEG data first to detect emotion."
             
+            # Decide whether to use GPT based on user input or environment
+            if use_gpt is None:
+                use_gpt = self.use_api
             if self.dream_generator:
                 # Use actual dream generator
                 dream_result = self.dream_generator.generate_dream_narrative(
